@@ -10,17 +10,22 @@ public:
 	person(string n, int m) {
 		name = n;
 		num = m;
+		count++;
 	}
 	virtual void show() = 0;
-	string getname() {
+	string getname() const{
 		return name;
 	}
-	int getnum() {
+	int getnum() const {
 		return num;
 	}
 	virtual ~person() = 0;
+	static int count;
 };
-person::~person(){}
+int person::count=0;
+person::~person(){
+	count--;
+}
 class evaluator {
 public:
 	virtual void fixscore(class student& stu, int index, double newscore) = 0;
@@ -38,28 +43,33 @@ public:
 			score[i] = s[i];
 		}
 	}
-	string getmajor() {
+	string getmajor() const{
 		return major;
 	}
-	int gettime() {
+	int gettime()const {
 		return time;
 	}
-	double getscore(int i) {
+	double getscore(int i) const {
 		if (i >= 0 && i < 7) {
 			return score[i];
 		}
+		return -1;
 	}
 	void setscore(int i, double s) {
 		if (i >= 0 && i < 7) {
 			score[i] = s;//建立接口便于teacher访问student的私有数据
 		}
 	}
-	double avescore() {
-		int sum = 0.0;
+	double avescore() const {
+		double sum = 0.0;
 		for (int i = 0; i < 7; i++) {
 			sum += score[i];
 		}
 		return sum / 7;
+	}
+	student& setmajor(string newmajor){
+		major=newmajor;
+		return *this;
 	}
 	void show() {
 		cout << "学号" << getnum() << endl;
@@ -91,7 +101,7 @@ public:
 		cout << "工号" << getnum() << endl;
 		cout << "办公室" << department << endl;
 	}
-	string getdep() {
+	string getdep()const {
 		return department;
 	}
 	~teacher(){}
@@ -126,6 +136,15 @@ void readfile() {
 	}
 	ifs.close();
 }
+inline bool ispass(double score){
+	return score>=60;
+}
+template<typename T>
+void myswap(T &a,T& b) {
+	T temp = a;
+	a = b;
+	b = temp;
+}
 int main() {
 	double score1[7] = { 87,88,89,87,88,87,89 };
 	student s1("张三",2003,"计算机",2025,score1);
@@ -134,12 +153,17 @@ int main() {
 	teacher t1("张教授", 1000, "三号楼");
 	//cout << s1.avescore(score1) << endl;
 	//cout << s2.avescore(score2) << endl;
+	cout<<"当前记录人数：" << person::count << endl;
 	s1.show();
 	s2.show();
+	s1.setmajor("软件工程").show();
 	t1.fixscore(s1, 4, 100);
 	s1.show();
 	t1.show();
 	writefile(s1, t1);
 	readfile();
+	cout<<(ispass(s1.avescore())?"及格":"不及格")<<endl;
+	myswap(score1[0],score2[0]);
+	cout<<score1[0]<<" "<<score2[0]<<endl;
 	return 0;
 }
