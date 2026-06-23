@@ -18,6 +18,7 @@ template<class T>
 class myclass{
     public:
     T obj;
+    //类模板中的成员函数，并不是一开始就创建，而是在调用的时候才创建
     void func1(){
         obj.showperson1();
     }
@@ -30,6 +31,8 @@ void test01(){
     myclass<person1>m1;
     m1.func1();
     //m1.func2();
+    //func2函数中调用了person2的showperson2函数，而person2类中没有showperson2函数，所以编译器在创建func2函数时就会报错
+    //说明函数在调用时才会创建成员函数
 }
 int main(){
     test01();
