@@ -88,10 +88,86 @@ void test04(){
     v10.clear();
     myprint(v10);
 }
+//vector数据存取
+void test05(){
+    vector<int>v11;
+    for(int i=20;i<30;i++){
+        v11.push_back(i);
+    }
+    for(int i=0;i<v11.size();i++){
+        cout<<v11[i]<<" ";
+    }
+    cout<<endl;
+    for(int i=0;i<v11.size();i++){
+        cout<<v11.at(i)<<" ";
+    }
+    cout<<endl;
+    cout<<"第一位："<<v11.front()<<endl;
+    cout<<"最后一位："<<v11.back()<<endl;
+}
+//vector容器的互换容器
+void printvector(vector<int>&v){
+    for(vector<int>::iterator it=v.begin();it<v.end();it++){
+        cout<<*it<<" ";
+    }
+    cout<<endl;
+}
+void test06(){
+    vector<int>v12;
+    for(int i=0;i<10;i++){
+        v12.push_back(i);
+    }
+    cout<<"交换前"<<endl;
+    printvector(v12);
+    vector<int>v13;
+    for(int i=10;i>0;i--){
+        v13.push_back(i);
+    }
+    printvector(v13);
+    v12.swap(v13);
+    cout<<"交换后"<<endl;
+    printvector(v12);
+    printvector(v13);
+}
+//交换函数的实际用途
+//巧用swap可以收缩内存空间
+void test07(){
+    vector<int>v13;
+    for(int i=0;i<100;i++){
+        v13.push_back(i);
+    }
+    cout<<"v13的容量:"<<v13.capacity()<<endl;//128
+    cout<<"v13的大小:"<<v13.size()<<endl;//100
+    v13.resize(3);
+    cout<<"v13的容量:"<<v13.capacity()<<endl;//128
+    cout<<"v13的大小:"<<v13.size()<<endl;//3
+    vector<int>(v13).swap(v13);
+    cout<<"v13的容量:"<<v13.capacity()<<endl;//3
+    cout<<"v13的大小:"<<v13.size()<<endl;//3
+}    
+//利用reserve可以预留空间
+void test08(){
+    vector<int>v14;
+    v14.reserve(v14.size());
+    int*p=NULL;
+    int num=0;
+    for(int i=0;i<100;i++){
+        v14.push_back(i);
+        if(p!=&v14[0]){
+            p=&v14[0];
+            num++;
+        }
+    }
+    cout<<"内存改动"<<num<<"次"<<endl;
+}
 int main(){
-    test01();
-    test02(); 
-    test03();
-    test04();
+    //test01();
+    //test02(); 
+    //test03();
+    //test04();
+    //test05();
+    //test06();
+    //test07();
+    test08();
     return 0;
 }
