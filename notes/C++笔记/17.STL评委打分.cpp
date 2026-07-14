@@ -1,6 +1,6 @@
 #include<iostream>
-#include<vector>
 #include<string>
+#include<vector>
 #include<deque>
 #include<algorithm>
 #include<ctime>
@@ -25,36 +25,37 @@ void createperson(vector<person>&v){
     }
 }
 void setscore(vector<person>&v){
-    for(vector<person>::iterator it=v.begin();it!=v.end();it++){
+    
+    for(vector<person>::iterator it=v.begin();it!=v.end();it++ ){
         deque<int>d;
         for(int i=0;i<10;i++){
             int score=rand()%41+60;
-            d.push_back(score);  
+            d.push_back(score);
         }
         sort(d.begin(),d.end());
-            d.pop_back();
-            d.pop_front();
-            int sum=0;
-            for(deque<int>::iterator dit=d.begin();dit!=d.end();dit++){
-                sum+=*dit;
-            }
-            int avg=sum/d.size();
-            it->m_score=avg;
+        d.pop_front();
+        d.pop_back();
+        int sum=0;
+        for(deque<int>::iterator dit=d.begin();dit!=d.end();dit++){
+            sum+=*dit;
+        }
+        int avg=sum/d.size();
+        it->m_score=avg;
     }
 }
-void show(vector<person>&v){
+void showperson(vector<person>&v){
     for(vector<person>::iterator it=v.begin();it!=v.end();it++){
-        cout<<"姓名 "<<it->m_name<<" 成绩"<<it->m_score<<endl;
+        cout<<it->m_name<<" 最终得分"<<it->m_score<<endl;
     }
 }
 int main(){
     srand((unsigned int)time(NULL));
-    //创建五名选手
-    vector<person>p;
-    createperson(p);
-    //给五名选手打分
-    setscore(p);
-    //创建的分
-    show(p);
+    vector<person>v;
+    //创建新人
+    createperson(v);
+    //设置分数
+    setscore(v);
+    //显示
+    showperson(v);
     return 0;
 }
