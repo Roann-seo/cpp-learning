@@ -136,6 +136,7 @@ void test08(){
     d.push_front(300);
     printdeque(d);
     sort(d.begin(),d.end());
+    //vector也可以用sort函数来排序
     printdeque(d);
 }
 int main(){

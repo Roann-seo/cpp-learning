@@ -131,6 +131,10 @@ void test05(){
         <<" age: "<<mit->first.m_age<<endl;
     }
 }
+// key=1 name: lisa age: 21
+// key=4 name: jennie age: 22
+// key=3 name: Jisoo age: 24
+// key=2 name: Rose age: 25
 int main(){
     //test01();
     //test02();

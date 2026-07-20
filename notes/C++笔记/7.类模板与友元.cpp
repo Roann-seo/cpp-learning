@@ -46,3 +46,4 @@ int main() {
     test02();
     return 0;
 }
+//优先类内实现

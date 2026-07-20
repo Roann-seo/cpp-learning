@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include<queue>
+//队列 先进先出 
 using namespace std;
 class person{
     public:

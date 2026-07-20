@@ -134,11 +134,12 @@ void test05(){
     printlist(l1);
     l1.reverse();
     cout<<"排序后(降序): "<<endl;
+    //li.sort(mycompare);
     printlist(l1);
 }
 //如果想要降序
 // bool mycompare(int v1,int v2){
-//     return v1<v2;
+//     return v1>v2;
 // }
 int main(){
     //test01();

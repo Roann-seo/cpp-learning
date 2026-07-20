@@ -1,5 +1,6 @@
 #include<iostream>
 #include<stack>
+//栈容器  先进后出，后进先出
 using namespace std;
 void test01(){
     stack<int>s;

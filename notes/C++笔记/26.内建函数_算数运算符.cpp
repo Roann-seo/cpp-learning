@@ -62,6 +62,7 @@ void test04(){
         cout<<*it<<" ";
     }
     cout<<endl;
+    //1 0 1 0
     //现在对原有数取反
     vector<bool>v2;
     v2.resize(v.size());
@@ -70,6 +71,7 @@ void test04(){
         cout<<*it<<" ";
     }
     cout<<endl;
+    //1 0 1 0
 }
 int main(){
     // test01();
