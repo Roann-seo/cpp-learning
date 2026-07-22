@@ -15,21 +15,21 @@ void myprint(int val){
 }
 void test01(){
     vector<int> v;
-    v.push_back(10);
+    v.push_back(10);//尾插法
     v.push_back(20);
     v.push_back(30);
     v.push_back(40);
     vector<int>::iterator pbegin=v.begin();//返回指向第一个元素的迭代器
     vector<int>::iterator pend=v.end();//返回指向最后一个元素下一位的迭代器
     //第一种遍历
-    //while(pbegin!=pend){
-      //  cout<<*pbegin<<endl;
-     //   pbegin++;
-    //}
+    while(pbegin!=pend){
+        cout<<*pbegin<<endl;
+        pbegin++;
+    }
     //第二种遍历
-    //for(vector<int>::iterator it=v.begin();it!=v.end();it++){
-      //  cout<<*it<<endl;
-    //}
+    for(vector<int>::iterator it=v.begin();it!=v.end();it++){
+        cout<<*it<<endl;
+    }
     //第三种遍历 利用STL提供便利算法
     for_each(v.begin(),v.end(),myprint);
 }

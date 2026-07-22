@@ -31,7 +31,8 @@ void test01(){
     myclass<person1>m1;
     m1.func1();
     //m1.func2();
-    //func2函数中调用了person2的showperson2函数，而person2类中没有showperson2函数，所以编译器在创建func2函数时就会报错
+    //func2函数中调用了person2的showperson2函数，而person1类中没有showperson2函数，所以编译器在创建func2函数时就会报错
+    //生成时没有报错但是在编译时错了
     //说明函数在调用时才会创建成员函数
 }
 int main(){

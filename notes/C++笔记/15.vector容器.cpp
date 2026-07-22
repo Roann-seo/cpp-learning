@@ -148,7 +148,7 @@ void test07(){
 //利用reserve可以预留空间
 void test08(){
     vector<int>v14;
-    v14.reserve(v14.size());
+    v14.reserve(100);//不能写v14.size(),因为此时vector刚创建此时为空，相当于没扩容
     int*p=NULL;
     int num=0;
     for(int i=0;i<100;i++){

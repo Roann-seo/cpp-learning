@@ -18,6 +18,8 @@ class MyArray{
         //cout<<"拷贝构造调用"<<endl;
         this->m_capacity=p.m_capacity;
         this->m_size=p.m_size;
+        //如果直接写 this->pAddress = p.pAddress 就是浅拷贝：
+        //两个对象共用同一块堆内存，析构时会重复delete，程序崩溃。
         //深拷贝
         this->pAddress=new T[p.m_capacity];
         for(int i=0;i<p.m_size;i++){
@@ -25,6 +27,7 @@ class MyArray{
         }
     }
     //operator=重载 防止浅拷贝
+    //&是支持连续赋值
     MyArray& operator=(const MyArray& arr){
         //cout<<"operator=构造调用"<<endl;
         //先判断原来堆区是否有数据，如果有数据先释放
