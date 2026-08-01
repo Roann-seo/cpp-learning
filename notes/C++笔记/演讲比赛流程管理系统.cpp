@@ -4,7 +4,7 @@ using namespace std;
 
 int main() {
     // 设置随机种子
-    // srand((unsigned int)time(NULL));
+    srand((unsigned int)time(NULL));
 
     // 创建演讲比赛管理对象
     SpeechManager sm;
@@ -23,8 +23,9 @@ int main() {
             sm.startSpeech();
             break;
         case 2:         // 查看往届记录
-            //sm.showRecord();
             sm.loadRecord();
+            sm.showRecord();
+            
             break;
         case 3:         // 清空比赛记录
             sm.clearRecord();

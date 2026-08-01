@@ -8,6 +8,7 @@
 SpeechManager::SpeechManager() {
     initSpeech();
     createSpeaker();
+    loadRecord();
 }
 
 // ****************************************************
@@ -53,6 +54,8 @@ void SpeechManager::initSpeech() {
     m_vVictory.clear();
     m_speaker.clear();
     m_index=1;
+    //将记录容器清空
+    m_record.clear();
 }
 void SpeechManager::createSpeaker(){
     string nameseed="ABCDEFGHIJKL";
@@ -246,6 +249,9 @@ void SpeechManager::startSpeech() {
     printPromotionResult();
     //7.保存
     saveRecord();
+    initSpeech();
+    createSpeaker();
+    loadRecord();
     cout<<"比赛结束"<<endl;
 }
 
@@ -254,7 +260,24 @@ void SpeechManager::startSpeech() {
 // 从 CSV 文件读取历史记录并显示
 // ****************************************************
 void SpeechManager::showRecord() {
-    // TODO: 你的代码
+    // cerr << "[DEBUG] showRecord() 被调用了, m_record.size = " << m_record.size() << endl;
+    // cout << "调试:m_record容器大小 = " << m_record.size() << endl;
+    cout.flush();
+    //system("pause");
+    if(fileIsEmpty){
+        cout<<"文件为空或者文件不存在"<<endl;
+    }
+    else{
+        for(map<int,vector<string>>::iterator it=m_record.begin();it!=m_record.end();it++){
+        cout<<"第"<<it->first<<"轮"<<endl;
+        cout<<"冠军编号:"<<it->second[0]<<" 冠军成绩: "<<it->second[1]
+        <<"亚军编号:"<<it->second[2]<<" 亚军成绩: "<<it->second[3]
+        <<"季军编号:"<<it->second[4]<<" 季军成绩: "<<it->second[5];
+        }
+    }
+    cout<<endl;
+    system("pause");
+    system("cls");
 }
 
 // ****************************************************
@@ -269,6 +292,8 @@ void SpeechManager::saveRecord() {
     }
     ofs<<endl;
     ofs.close();
+    cout<<"记录已保存"<<endl;
+    fileIsEmpty=false;
 }
 
 // ****************************************************
@@ -294,16 +319,19 @@ void SpeechManager::loadRecord() {
     fileIsEmpty=false;
     ifs.putback(ch);//将上面的单个字符读回来
     string data;
-    int pos=-1;//位置变量
-    int start=0;
     int index=1;
-    vector<string>v;//存放六个字符串
     while(ifs>>data){
+        int start=0;//每行重置start
+        int pos=-1;//位置变量
+        vector<string>v;//每行一个新的vector，存放六个字符串
         //cout<<data<<endl;
         while(true){
             pos=data.find(",",start);
             if(pos==-1){
-                break;//没有找到
+                // 处理最后一段数据（最后一个逗号后面的部分）
+                string temp=data.substr(start);
+                v.push_back(temp);
+                break;
             }
             string temp=data.substr(start,pos-start);
             //cout<<temp<<" ";
@@ -314,10 +342,10 @@ void SpeechManager::loadRecord() {
         index++;
     }
     ifs.close();
-    for(map<int,vector<string>>::iterator it=m_record.begin();it!=m_record.end();it++){
-        cout<<"冠军"<<it->first<<"编号"<<it->second[0]<<"成绩"<<it->second[1];
-    }
-    cout<<endl;
+    // for(map<int,vector<string>>::iterator it=m_record.begin();it!=m_record.end();it++){
+    //     cout<<"冠军"<<it->first<<"编号"<<it->second[0]<<"成绩"<<it->second[1];
+    // }
+    // cout<<endl;
 }
 
 // ****************************************************
@@ -325,5 +353,19 @@ void SpeechManager::loadRecord() {
 // 清空文件内容
 // ****************************************************
 void SpeechManager::clearRecord() {
-    // TODO: 你的代码
+    cout<<"确认清空?"<<endl;
+    cout<<"1.确认"<<endl;
+    cout<<"2.返回"<<endl;
+    int select=0;
+    cin>>select;
+    if(select==1){
+        ofstream ofs("speech.csv",ios::trunc);
+        //ios::trunc 如果存在删除文件并重新创建
+        initSpeech();
+        createSpeaker();
+        loadRecord();
+        cout<<"清空成功"<<endl;
+    }
+    system("pause");
+    system("cls");
 }
